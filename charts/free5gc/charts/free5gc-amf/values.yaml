@@ -28,7 +28,7 @@ global:
   sbi:
     scheme: http
   amf:
-    n2if:  # NGAP
+    n2if: # NGAP
       ipAddress: 10.100.50.249
     service:
       ngap:
@@ -42,7 +42,7 @@ global:
     enabled: true
     name: n2network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.248
     cidr: 29
     gatewayIP: 10.100.50.254
@@ -86,7 +86,7 @@ amf:
     initialDelaySeconds: 0
     periodSeconds: 1
     timeoutSeconds: 1
-    failureThreshold:  40
+    failureThreshold: 40
     successThreshold: 1
   livenessProbe:
     initialDelaySeconds: 120
@@ -117,11 +117,11 @@ amf:
     #      - chart-example.local
   configuration:
     serviceNameList: |-
-        - namf-comm
-        - namf-evts
-        - namf-mt
-        - namf-loc
-        - namf-oam
+      - namf-comm
+      - namf-evts
+      - namf-mt
+      - namf-loc
+      - namf-oam
     configuration: |-
       amfName: AMF
       serviceNameList:

@@ -20,7 +20,7 @@ global:
     enabled: true
     name: n2network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.248
     cidr: 29
     gatewayIP: 10.100.50.254
@@ -29,12 +29,11 @@ global:
     enabled: true
     name: n3network
     type: ipvlan
-    masterIf: eth0
+    masterIf: enp0s3
     subnetIP: 10.100.50.232
     cidr: 29
     gatewayIP: 10.100.50.238
     excludeIP: 10.100.50.238
-
 
 projectName: ueransim
 
@@ -62,13 +61,13 @@ gnb:
     port: 4997
     protocol: UDP
 
-  n2if:  # NGAP
+  n2if: # NGAP
     ipAddress: 10.100.50.250
-  n3if:  # GTP-U
+  n3if: # GTP-U
     ipAddress: 10.100.50.236
 
   amf:
-    n2if:  # NGAP
+    n2if: # NGAP
       ipAddress: 10.100.50.249
       port: 38412
     service:
@@ -112,7 +111,7 @@ ue:
   volume:
     name: ue-volume
     mount: /ueransim/config
-  command: "./nr-ue -c ./config/ue-config.yaml"  # This is the command that will be launched in the UE container
+  command: "./nr-ue -c ./config/ue-config.yaml" # This is the command that will be launched in the UE container
   # A script that will be run after the UE creation. It may be used to periodically generate traffic
   script: ""
   # script: |-
@@ -124,7 +123,7 @@ ue:
   podSecurityContext: {}
   securityContext:
     capabilities:
-            add: ["NET_ADMIN"]
+      add: ["NET_ADMIN"]
   resources:
     requests:
       cpu: 100m
