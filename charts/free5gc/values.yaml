@@ -77,7 +77,7 @@ global:
     gatewayIP: 10.0.2.2
     excludeIP: 10.0.2.2
   n9network:
-    enabled: true
+    enabled: false
     name: n9network
     type: ipvlan
     masterIf: enp0s3
