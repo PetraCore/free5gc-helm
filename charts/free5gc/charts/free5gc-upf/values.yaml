@@ -82,7 +82,10 @@ upf:
   podAnnotations: {}
     # additional annotations
   imagePullSecrets: []
-  podSecurityContext: {}
+  podSecurityContext:
+    sysctls:
+      - name: net.ipv4.ip_forward
+        value: "1" # enable ip forwarding
   securityContext:
     capabilities:
       add: ["NET_ADMIN"]
