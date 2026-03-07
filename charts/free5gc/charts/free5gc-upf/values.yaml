@@ -64,7 +64,14 @@ upf:
     tag: v4.2.0
     pullPolicy: Always
   configmap:
-    wrapperAdditionalCommands: ""
+    wrapperAdditionalCommands: |
+      # Remove non-N6 gateways
+      ip route del default via 10.100.50.246 dev n4 || true
+      ip route del default via 10.100.50.238 dev n3 || true
+      ip route del default via 169.254.1.1 dev eth0 || true
+      
+      # Ensure UE can reach the internet
+      iptables -t nat -A POSTROUTING -o n6 -j MASQUERADE
     # wrapperAdditionalCommands: |
     #   echo "123" > /tmp/123
   volume:
