@@ -1,0 +1,24 @@
+# Config based on k8 chart's values.yaml
+
+mcc: '208' # Mobile Country Code value
+mnc: '93' # Mobile Network Code value (2 or 3 digits)
+nci: '0x000000010' # NR Cell Identity (36-bit)
+idLength: 32 # NR gNB ID length in bits [22...32]
+tac: 1  # Tracking Area Code
+
+linkIp: 10.100.50.250  # Internal UERANSIM communication
+ngapIp: 10.100.50.250  # N2 
+gtpIp: 10.100.50.236   # N3
+
+amfConfigs:
+  - address: 10.100.50.249
+    port: 38412
+
+# List of supported S-NSSAIs by this gNB
+slices:
+  - sst: 0x1
+    sd: 0x010203
+
+# Indicates whether or not SCTP stream number errors should be ignored.
+ignoreStreamIds: true
+
