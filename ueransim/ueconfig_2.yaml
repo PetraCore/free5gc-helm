@@ -1,14 +1,14 @@
 # Config based on k8 chart's values.yaml
 
-supi: "imsi-208930000000001"  # IMSI number
+supi: "imsi-208930000000002"  # IMSI number
 mcc: "208" # Mobile Country Code value
 mnc: "93" # Mobile Network Code value (2 or 3 digits)
-key: "8baf473f2f8fd09487cccbd7097c6862" # Operator code (OP or OPC) of the UE
+key: "8baf473f2f8fd09487cccbd7097c6863" # Operator code (OP or OPC) of the UE
 op: "8e27b6af0e692e750f32667a3b14605d" # This value specifies the OP type and it can be either 'OP' or 'OPC'
 opType: "OPC" # This value specifies the OP type and it can be either 'OP' or 'OPC'
 amf: "8000" # Authentication Management Field (AMF) value
-imei: "356938035643803" # IMEI number of the device
-imeiSv: "4370816125816151"
+imei: "356938035643804" # IMEI number of the device
+imeiSv: "4370816125816152"
 
 gnbSearchList:
   - 10.100.50.250
