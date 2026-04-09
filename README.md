@@ -41,6 +41,8 @@ BibTex:
 
 ## Used VMs
 
+OS: Ubuntu 20.04 LTS
+
 free5gc_host:
 
     enp0s3: 15.0.2.0/24 (NAT)
@@ -422,3 +424,22 @@ ping -I uesimtun0 google.com
 ```
 
 If those pings are successful, that means you properly configured the network. Congrats!
+
+## Setting up UE <-> UE communication
+
+Start a second UE:
+```
+cd ~/net5g
+sudo su
+nr-ue -c ueconfig_2.yaml
+```
+
+Check uesimtun0 ip address:
+```
+ip a
+```
+
+Ping uesimtun0 through uesimtun1:
+```
+ping -I uesimtun1 <uesimtun0_ip_address>
+```
