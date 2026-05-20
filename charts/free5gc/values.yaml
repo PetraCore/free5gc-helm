@@ -44,7 +44,7 @@ global:
     enabled: true
     name: n2network
     type: ipvlan
-    masterIf: enp0s8
+    masterIf: eth0
     subnetIP: 10.100.50.248
     cidr: 29
     gatewayIP: 10.100.50.254
@@ -53,7 +53,7 @@ global:
     enabled: true
     name: n3network
     type: ipvlan
-    masterIf: enp0s8
+    masterIf: eth0
     subnetIP: 10.100.50.232
     cidr: 29
     gatewayIP: 10.100.50.238
@@ -62,7 +62,7 @@ global:
     enabled: true
     name: n4network
     type: ipvlan
-    masterIf: enp0s8
+    masterIf: eth0
     subnetIP: 10.100.50.240
     cidr: 29
     gatewayIP: 10.100.50.246
@@ -71,7 +71,7 @@ global:
     enabled: true
     name: n6network
     type: ipvlan
-    masterIf: enp0s3
+    masterIf: wlan0
     subnetIP: 10.0.2.0
     cidr: 24
     gatewayIP: 10.0.2.2
@@ -80,7 +80,7 @@ global:
     enabled: false
     name: n9network
     type: ipvlan
-    masterIf: enp0s8
+    masterIf: eth0
     subnetIP: 10.100.50.224
     cidr: 29
     gatewayIP: 10.100.50.230
@@ -99,9 +99,9 @@ deployPcf: true
 deploySmf: true
 deployUdm: true
 deployUdr: true
-deployUpf: true
+deployUpf: false
 deployWebui: true
-deployDbPython: true
+deployDbPython: false
 
 # Disable the deployment of mongodb as an NRF subchart
 free5gc-nrf:
@@ -110,6 +110,23 @@ free5gc-nrf:
 
 # This section can be used to override the default values in the MongoDB chart
 mongodb:
+  # Since there are no legacy Bitnami tags for ARM architecture, we need to do this
+  image:
+    repository: mongo
+    tag: 4.4.18
+    pullPolicy: IfNotPresent
+
+  # Ugly, but it is the only solution...
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  customReadinessProbe: {}
+  customLivenessProbe: {}
+  
+  nodeSelector:
+    free5gc-role: rpi-cp
+
   fullnameOverride: "mongodb"
   useStatefulSet: true
   auth:
