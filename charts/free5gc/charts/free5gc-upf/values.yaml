@@ -41,11 +41,11 @@ global:
     enabled: true
     name: n6network
     type: ipvlan
-    masterIf: eth0
-    subnetIP: 10.0.2.0
+    masterIf: wlan0
+    subnetIP: 192.168.0.0
     cidr: 24
-    gatewayIP: 10.0.2.2
-    excludeIP: 10.0.2.2
+    gatewayIP: 192.168.0.1
+    excludeIP: 192.168.0.1
   n9network:
     enabled: false
     name: n9network
@@ -95,7 +95,7 @@ upf:
   n4if: # PFCP
     ipAddress: 10.100.50.241
   n6if: # DN
-    ipAddress: 10.0.2.112
+    ipAddress: 192.168.0.100
 
   podAnnotations: {}
     # additional annotations

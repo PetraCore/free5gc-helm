@@ -39,6 +39,23 @@ global:
   smf:
     n4if:
       ipAddress: 10.100.50.244
+    configuration:
+      userplane_information:
+        upfs:
+          # Give your standalone UPF a name here
+          vUPF:
+            nodeID: 10.100.50.241  # This MUST match your standalone UPF's n4if IP
+            type: UPF
+            interfaces:
+              - interfaceType: N3
+                endpoints:
+                  - 10.100.50.233  # This MUST match your standalone UPF's n3if IP
+                networkInstance: internet
+              - interfaceType: N6
+                endpoints:
+                  - 10.0.2.112     # This MUST match your standalone UPF's n6if IP
+                networkInstance: internet
+
   #Global network parametes
   n2network:
     enabled: true
@@ -133,7 +150,7 @@ mongodb:
     enabled: false
   persistence:
     size: 6Gi
-    mountPath: /bitnami/mongodb/data/db/
+    mountPath: /data/db/
   service:
     name: mongodb
     type: ClusterIP
