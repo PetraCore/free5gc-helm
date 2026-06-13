@@ -115,11 +115,11 @@ git checkout
 cp ~/free5gc-helm/ueransim/ ~/ueransim-config -r
 ```
 
-## Satarting the system
+## Starting the system
 
-After the UPF and CP are working, in order to test if this system works, we need to start one gnb and one or two ues.
+After the UPF and CP are working, in order to test if this system works, we need to start one gNB and one or two UEs.
 
-### Starting gnb
+### Starting gNB
 
 ```bash
 sudo $HOME/UERANSIM/build/nr-gnb -c $HOME/ueransim/gnbconfig.yaml
@@ -130,16 +130,16 @@ sudo $HOME/UERANSIM/build/nr-gnb -c $HOME/ueransim/gnbconfig.yaml
 In order to start one UE:
 
 ```bash
-$UERANSIM_DIR/build/nr-ue -c $CONFIG_DIR/ueconfig.yam
+$UERANSIM_DIR/build/nr-ue -c $CONFIG_DIR/ueconfig.yaml
 ```
 
 and we can add a -n flad to add more UE's (the ism number will be incremented by one)
 
 ```bash
-$UERANSIM_DIR/build/nr-ue -c $CONFIG_DIR/ueconfig.yam -n 2
+$UERANSIM_DIR/build/nr-ue -c $CONFIG_DIR/ueconfig.yaml -n 2
 ```
 
-> A good practise is to run each ue on a different namespace cause linux might create some problems with routing
+> A good practice is to run each UE on a different namespace because Linux might have some problems with routing
 
 ## Tests
 
@@ -158,3 +158,4 @@ sudo ip netns exec ue1 ping -I uesimtun0 8.8.8.8
 # UE2 → internet
 sudo ip netns exec ue2 ping -I uesimtun0 8.8.8.8
 ```
+> **Disclaimer:** Note that UEs in your setup might be assigned different IPs if you started them in different order or restarted them.

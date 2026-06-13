@@ -1,6 +1,6 @@
 # Control Plane (CP) Machine Configuration
 
-Setup guide for the **free5GC Control Plane** node — a Raspberry Pi running Ubuntu 24.04 at `192.168.67.69`, routing through the UPF at `192.168.67.67`.
+Setup guide for the **free5GC Control Plane** node — a Raspberry Pi running Ubuntu Server 24.04 LTS at `192.168.67.69`, routing through the UPF at `192.168.67.67`.
 
 ---
 

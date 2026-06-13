@@ -1,6 +1,6 @@
 # UPF Machine Configuration
 
-Setup guide for a Raspberry Pi running **Ubuntu 24.04** as a User Plane Function (UPF) node.
+Setup guide for a Raspberry Pi running **Ubuntu Server 24.04 LTS** as a User Plane Function (UPF) node.
 
 ---
 
@@ -25,7 +25,7 @@ Setup guide for a Raspberry Pi running **Ubuntu 24.04** as a User Plane Function
 
 ## Prerequisites
 
-- Raspberry Pi with Ubuntu 24.04 installed
+- Raspberry Pi with Ubuntu Server 24.04 LTS installed
 - Ethernet interface: `eth0`
 - Wi-Fi interface (optional): `wlan0`
 - Target static IP: `192.168.67.67/24`

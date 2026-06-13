@@ -39,24 +39,24 @@ BibTex:
 
 # Deployment tutorial
 
-## Used VMs
+## Used Machines
 
-OS: Ubuntu 24.04 LTS
+OS: Ubuntu Server 24.04 LTS
 
-kubernetes_controll_plane (and controll_plane node):
+kubernetes_control_plane (and control_plane node):
 
     eth0: 192.168.67.69/24 (internal network)
-    machine: Ubuntu 24.04LTS / Raspberry Pi 5
+    machine: Ubuntu Server 24.04 LTS / Raspberry Pi 5
 
 kubernetes_worker (and user_plane node):
 
     eth0: 192.168.67.67/24 (internal network)
     wlan0: WIFI_IP (IP thanks to which you will have internet connection)
-    machine: Ubuntu 24.04LTS / Raspberry Pi 4 B
+    machine: Ubuntu Server 24.04 LTS / Raspberry Pi 4 B
  
 ueransim machine:
 
-    eth0L 192.168.67.42 (internal network, name changed from enp0s3 or enp0s8)
-    machine: Ubuntu 24.04LTS / VM 
+    eth0: 192.168.67.42 (internal network, name changed from enp0s3 or enp0s8)
+    machine: Ubuntu Server 24.04 LTS / VM 
 
 > You will find how to setup each machine using documentation files in /setup directory
