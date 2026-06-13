@@ -318,16 +318,6 @@ cd ~/free5gc-helm/charts/
 helm upgrade --install controlplane -n cp \
              --create-namespace \
              free5gc
-
-# UERANSIM (single UE)
-helm upgrade --install gdbue -n ue \
-             --create-namespace \
-             ueransim
-
-# UERANSIM (multiple UEs)
-helm upgrade --install gdbues -n ue \
-             --create-namespace \
-             ueransim-many
 ```
 
 Check pod status:
@@ -335,7 +325,6 @@ Check pod status:
 ```bash
 kubectl get pods -n up -o wide
 kubectl get pods -n cp -o wide
-kubectl get pods -n ue -o wide
 ```
 
 Remove all namespaces (full teardown):
@@ -343,7 +332,6 @@ Remove all namespaces (full teardown):
 ```bash
 kubectl delete ns cp
 kubectl delete ns up
-kubectl delete ns ue
 ```
 
 ---
@@ -357,13 +345,6 @@ kubectl port-forward -n cp deployment/controlplane-free5gc-webui-webui --address
 ```
 
 Then open `http://192.168.67.69:5000` in a browser.
-
-**Connectivity tests from UE pod:**
-
-```bash
-kubectl exec <ue-pod> -n ue -it -- traceroute -i uesimtun0 8.8.8.8
-kubectl exec <ue-pod> -n ue -it -- ping -I uesimtun0 8.8.8.8
-```
 
 **Packet capture on UPF pod:**
 
