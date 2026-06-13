@@ -42,10 +42,10 @@ global:
     name: n6network
     type: ipvlan
     masterIf: wlan0
-    subnetIP: 192.168.0.0
-    cidr: 24
-    gatewayIP: 192.168.0.1
-    excludeIP: 192.168.0.1
+    subnetIP: 192.168.0.0 # Change this IP to your subnet
+    cidr: 22
+    gatewayIP: 192.168.0.1 # Change this IP to yours subnet gateway
+    excludeIP: 192.168.0.1 # Change this IP to yours subnet gateway
   n9network:
     enabled: false
     name: n9network
@@ -73,16 +73,27 @@ upf:
       # Disable redirects (crucial for UE <-> UE communication)
       for i in /proc/sys/net/ipv4/conf/*/send_redirects; do echo 0 > $i; done
 
-      # Disable reverse path filtering (crucial for UE <-> UE communitation)
+      # Disable reverse path filtering (crucial for UE <-> UE communication)
       for i in /proc/sys/net/ipv4/conf/*/rp_filter; do echo 0 > $i; done
 
-      # Enable hairpinning (crucial for UE <-> UE communication)
+      # Enable hairpinning — FORWARD rules
       iptables -I FORWARD 1 -s 10.1.0.0/16 -d 10.1.0.0/16 -j ACCEPT
       iptables -A FORWARD -i n3 -o n3 -j ACCEPT
-      iptables -t nat -I POSTROUTING -s 10.1.0.0/16 -d 10.1.0.0/16 -j ACCEPT
 
-      # Ensure UE can reach the internet
-      iptables -t nat -A POSTROUTING -o n6 -j MASQUERADE
+      # FIX: Insert UE-to-UE NAT bypass BEFORE any masquerade rule
+      iptables -t nat -I POSTROUTING 1 -s 10.1.0.0/16 -d 10.1.0.0/16 -j ACCEPT
+
+      # FIX: Add higher-priority policy route so UE->UE stays in main table
+      # (main table has upfgtp routes, n6if table only has default via n6)
+      ip rule add from 10.1.0.0/16 to 10.1.0.0/16 table main priority 100
+
+      # Ensure UE can reach the internet (lower priority, only for non-UE destinations)
+      echo "nameserver 8.8.8.8" > /etc/resolv.conf
+      echo "nameserver 194.29.160.10" >> /etc/resolv.conf
+
+      # apt install -y tcpdump
+      # Note: remove the duplicate MASQUERADE below — it's already in wrapper.sh base
+      # iptables -t nat -A POSTROUTING -o n6 -j MASQUERADE  ← DELETE THIS LINE
     # wrapperAdditionalCommands: |
     #   echo "123" > /tmp/123
   volume:
@@ -95,7 +106,7 @@ upf:
   n4if: # PFCP
     ipAddress: 10.100.50.241
   n6if: # DN
-    ipAddress: 192.168.0.100
+    ipAddress: 192.168.0.100 # Change this IP address to your Hotspot IP space
 
   podAnnotations: {}
     # additional annotations

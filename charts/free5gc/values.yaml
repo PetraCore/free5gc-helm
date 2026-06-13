@@ -53,7 +53,7 @@ global:
                 networkInstance: internet
               - interfaceType: N6
                 endpoints:
-                  - 10.0.2.112     # This MUST match your standalone UPF's n6if IP
+                  - 192.168.0.100  # This MUST match your standalone UPF's n6if IP
                 networkInstance: internet
 
   #Global network parametes
