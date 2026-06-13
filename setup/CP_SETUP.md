@@ -361,7 +361,5 @@ kubectl rollout restart daemonset kube-multus-ds -n kube-system
 **TODO: apply to pod configs at deploy time (currently manual):**
 
 ```bash
-kubectl exec <upf-pod> -n up -it -- sh -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 kubectl exec <upf-pod> -n up -it -- apt install tcpdump
-kubectl exec <ue-pod>  -n ue -it -- apt install traceroute
 ```
