@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: free5gc-pv-cert
+  labels:
+    project: free5gc
+spec:
+  capacity:
+    storage: 2Mi
+  accessModes:
+  - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: microk8s-hostpath
+  local:
+    path: /home/truskawka/storage5g/cert # put your own path here
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: free5gc-role
+          operator: In
+          values:
+          - rpi-cp
+

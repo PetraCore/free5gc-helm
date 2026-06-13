@@ -234,68 +234,23 @@ microk8s stop && microk8s start
 
 ## Persistent Storage
 
-Create local directories and PersistentVolume manifests for MongoDB and TLS certificates.
+
+Get this git repo 
 
 ```bash
-mkdir -p ~/storage5g/mongo
-mkdir -p ~/storage5g/cert
+cd ~
+git clone https://github.com/PetraCore/free5gc-helm.git
 ```
 
-**MongoDB PersistentVolume** (`~/storage5g/persistent-vol-for-mongodb.yaml`):
+Copy from the free5gc-helm
 
-```yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: free5gc-pv-mongo
-  labels:
-    project: free5gc
-spec:
-  capacity:
-    storage: 8Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: microk8s-hostpath
-  local:
-    path: /home/truskawka/storage5g/mongo  # update to your username
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: free5gc-role
-          operator: In
-          values:
-          - rpi-cp
+```bash
+cp -r ~/free5gc-helm/storage5g ~
+mkdir ~/storage5g/mongo
+mkdir ~/storage5g/cert
 ```
 
-**Certificate PersistentVolume** (`~/storage5g/persistent-vol-for-cert.yaml`):
-
-```yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: free5gc-pv-cert
-  labels:
-    project: free5gc
-spec:
-  capacity:
-    storage: 2Mi
-  accessModes:
-  - ReadOnlyMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: microk8s-hostpath
-  local:
-    path: /home/truskawka/storage5g/cert  # update to your username
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: free5gc-role
-          operator: In
-          values:
-          - rpi-cp
-```
+> ***Important*** change the username in path to the storage folder if your machine is named differently than in our configuration
 
 Apply both:
 
